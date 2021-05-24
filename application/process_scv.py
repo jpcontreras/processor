@@ -14,6 +14,7 @@ class ProcessCsv:
     def __init__(self, file):
         self.file = file
         self.total_rows = 0
+        self.postal_codes_pack = []
 
     def run(self):
         with open(self.file.filename, "wb") as buffer:
@@ -21,8 +22,7 @@ class ProcessCsv:
         file_path = f'./{self.file.filename}'
         name, extension = os.path.splitext(file_path)
         if extension == '.csv':
-            postal_codes_pack = self._file_access(file_path)
-            self._send_postal_codes(postal_codes_pack)
+            self._file_access(file_path)
         else:
             raise Exception('Invalid file format. Expected .csv')
         os.remove(file_path)
@@ -33,7 +33,7 @@ class ProcessCsv:
     # ===== Return:
     # +Array<Json>+
     def _file_access(self, file_path):
-        postal_codes_pack = []
+        # postal_codes_pack = []
         self.total_rows = sum(1 for row in (open(file_path)))
         with open(file_path) as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=',')
@@ -58,7 +58,7 @@ class ProcessCsv:
                             data_string = json.loads(response)
                             if len(geolocations) != len(data_string['result']):
                                 raise Exception('Some Geolocation of csv dont have Postal Code')
-                            postal_codes_pack.append(data_string['result'])
+                            self.postal_codes_pack.append(data_string['result'])
                             geolocations = []
                             row_to_request = 0
                         row_to_request += 1
@@ -66,10 +66,5 @@ class ProcessCsv:
                         ''
                         # TODO: should save in some variable total invalid coordinates to return the client
                 current_row += 1
-        return postal_codes_pack
-
-    # ===== Parameters
-    # *+postal_codes_pack+:Array<Json>
-    def _send_postal_codes(self, postal_codes_pack):
-        ''
+        return self.postal_codes_pack
 
