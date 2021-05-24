@@ -1,9 +1,8 @@
 import requests
+import json
 
 class PostcodesService:
-
-    def __init__(self):
-        self.api_url = 'http://api.postcodes.io/'
+    API_URL = "https://api.postcodes.io/postcodes/"
 
     # ===== Parameters:
     # *+geolocations+: Array<Json>
@@ -16,5 +15,6 @@ class PostcodesService:
     #   "limit": 1
     # }
     def bulk_search_nearest(self, geolocations):
-        response = requests.post('%spostcodes' % self.api_url, data={'geolocations': geolocations})
-        print(response.json())
+        payload = {"geolocations": geolocations}
+        headers = {'content-type': 'application/json'}
+        return requests.post(self.API_URL, data=json.dumps(payload), headers=headers).text
