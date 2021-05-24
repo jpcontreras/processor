@@ -4,9 +4,6 @@ import json
 class PostcodesService:
     API_URL = "https://api.postcodes.io/postcodes/"
 
-    # def __init__(self):
-    #
-
     # ===== Parameters:
     # *+geolocations+: Array<Json>
     # ===== Description
