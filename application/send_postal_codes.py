@@ -63,16 +63,11 @@ class SendPostalCodes:
     def run(self):
         service = PostalCodesService()
         for data in self.postal_codes:
-            for posta_code in data:
-                # print(f"posta_code ===> {posta_code}")
-                # print(f"latitude ===> { posta_code['query']['latitude'] }")
-                # print(f"longitude ===> {posta_code['query']['longitude']}")
-                # print(f"result ===> {posta_code['result'][0]}")
+            for postal_code in data:
                 payload = {
-                  "latitude": posta_code['query']['latitude'],
-                  "longitude": posta_code['query']['longitude'],
-                  "postal_details": posta_code['result'][0]
+                  "latitude": postal_code['query']['latitude'],
+                  "longitude": postal_code['query']['longitude'],
+                  "postal_details": postal_code['result']
                 }
                 response = service.create(payload)
                 data_string = json.loads(response)
-                print(f"data_string ===> {data_string}")

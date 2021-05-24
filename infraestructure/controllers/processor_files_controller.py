@@ -12,6 +12,6 @@ async def upload(file: UploadFile = File(...)):
     send_interactor = SendPostalCodes(process_interactor.postal_codes_pack)
     send_interactor.run()
 
-    return { "line_count": process_interactor.total_rows }
+    return { "total_process": process_interactor.total_rows }
     # except Exception as exc:
     #     return { "Error": exc }
