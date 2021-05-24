@@ -16,5 +16,5 @@ class PostcodesService:
     #   "limit": 1
     # }
     def bulk_search_nearest(self, geolocations):
-        response = requests.post('%spostcodes' % self.api_url, data=geolocations)
+        response = requests.post('%spostcodes' % self.api_url, data={'geolocations': geolocations})
         print(response.json())
