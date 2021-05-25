@@ -9,9 +9,9 @@ async def upload(file: UploadFile = File(...)):
     # try:
     process_interactor = ProcessCsv(file)
     process_interactor.run()
+    # TODO: search an learn about triggers
     send_interactor = SendPostalCodes(process_interactor.postal_codes_pack)
     send_interactor.run()
-
     return { "total_process": process_interactor.total_rows }
     # except Exception as exc:
     #     return { "Error": exc }

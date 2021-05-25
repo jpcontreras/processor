@@ -33,7 +33,6 @@ class ProcessCsv:
     # ===== Return:
     # +Array<Json>+
     def _file_access(self, file_path):
-        # postal_codes_pack = []
         self.total_rows = sum(1 for row in (open(file_path)))
         with open(file_path) as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=',')
